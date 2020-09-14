@@ -214,7 +214,7 @@ namespace ttyloadsharp
 
             foreach (var load in loadAverages)
             {
-                load.ComputerHeights(maxLoad, maxHeight);
+                load.ComputeHeights(maxLoad, maxHeight);
             }
 
             var thresholdHeight = maxLoad < 2m ? -1 : Enumerable.Range(0, maxHeight)

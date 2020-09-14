@@ -26,7 +26,7 @@ namespace ttyloadsharp
                 Time = DateTime.Now;
             }
 
-            public void ComputerHeights(decimal maxLoad, int height)
+            public void ComputeHeights(decimal maxLoad, int height)
             {
                 Height1 = (int)(height * ((maxLoad - OneMinute) / maxLoad));
                 Height5 = (int)(height * ((maxLoad - FiveMinutes) / maxLoad));
