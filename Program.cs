@@ -27,6 +27,7 @@ namespace ttyloadsharp
         "  -h -- show this help, then exit\n" +
         "  -v -- show version info, then exit\n" +
         "  -m -- monochrome mode (no ANSI escapes)\n" +
+        "  -t -- threshold value, number of cores by default" +
         "  -c cols -- how wide is the screen?\n" +
         "  -r rows -- and how high?\n" +
         "     (these override the default auto-detect)\n" +
@@ -35,9 +36,7 @@ namespace ttyloadsharp
         "the interval between refreshes.\n" +
         "     The default is 4, and the minimum " +
         "is 1, which is silently clamped.\n\n" +
-        "  (Note: use ctrl-C to quit)\n\n" +
-        "  For more info, see http://" +
-        "www.daveltd.com/src/util/ttyload/";
+        "  (Note: use ctrl-C to quit)";
         private static int clockpad;
         private static int clocks;
         private static string version = "1.0";
