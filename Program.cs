@@ -13,13 +13,13 @@ namespace ttyloadsharp
         private enum Colors { None = 0, One = 1, Five = 2, Fifteen = 4 }
 
         /* storage for clock display along the bottom */
-        private const int HEIGHTPAD = 7; /* 2 lines above; * 4 lines + cursor line below */
-        private const int WIDTHPAD = 14;
-        private const int CLOCKWIDTH = 7;
+        private const int HeightPadding = 7; /* 2 lines above; * 4 lines + cursor line below */
+        private const int WidthPadding = 14;
+        private const int ClockWidth = 7;
         private readonly TimeSpan OneMinute = new TimeSpan(0, 1, 0);
 
-        private const int MINROWS = HEIGHTPAD + 6;
-        private const int MINCOLS = WIDTHPAD + 6;
+        private const int MinRows = HeightPadding + 6;
+        private const int MinColumns = WidthPadding + 6;
         private static readonly string usage =
         "Usage: {0} [<options>]\n" +
         "\n" +
@@ -148,22 +148,22 @@ namespace ttyloadsharp
 
             //Console.Clear();
 
-            if (rows < MINROWS)
+            if (rows < MinRows)
             {
-                Console.Error.WriteLine($"Sorry, {basename} requires at least {MINROWS} rows to run.");
+                Console.Error.WriteLine($"Sorry, {basename} requires at least {MinRows} rows to run.");
                 return;
             }
-            if (cols < MINCOLS)
+            if (cols < MinColumns)
             {
-                Console.Error.WriteLine($"Sorry, {basename} requires at least {MINCOLS} cols to run.");
+                Console.Error.WriteLine($"Sorry, {basename} requires at least {MinColumns} cols to run.");
                 return;
             }
 
             intSecs = Math.Max(1, intSecs); /* must be positive */
-            var height = rows - HEIGHTPAD - 1;
-            var width = cols - WIDTHPAD;
-            clocks = Math.Max(width / intSecs, width / CLOCKWIDTH);
-            clockpad = (width / clocks) - CLOCKWIDTH;
+            var height = rows - HeightPadding - 1;
+            var width = cols - WidthPadding;
+            clocks = Math.Max(width / intSecs, width / ClockWidth);
+            clockpad = (width / clocks) - ClockWidth;
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
@@ -294,7 +294,6 @@ namespace ttyloadsharp
         private static char GraphCharacter(LinkedListNode<Load> loadNode, int height, Func<LinkedListNode<Load>, int> selector)
         {
             var previousNode = loadNode.Previous;
-            var nextNode = loadNode.Next;
             if (height == selector(loadNode))
             {
                 if (IsHorizontal(loadNode, selector))
@@ -338,19 +337,16 @@ namespace ttyloadsharp
         private static bool IsHorizontal(LinkedListNode<Load> loadNode, Func<LinkedListNode<Load>, int> selector)
         {
             var previousNode = loadNode.Previous;
-            var nextNode = loadNode.Next;
             return previousNode == null || selector(loadNode) == selector(previousNode);
         }
         private static bool IsRising(LinkedListNode<Load> loadNode, Func<LinkedListNode<Load>, int> selector)
         {
             var previousNode = loadNode.Previous;
-            var nextNode = loadNode.Next;
             return previousNode != null && selector(loadNode) < selector(previousNode);
         }
         private static bool IsFalling(LinkedListNode<Load> loadNode, Func<LinkedListNode<Load>, int> selector)
         {
             var previousNode = loadNode.Previous;
-            var nextNode = loadNode.Next;
             return previousNode != null && selector(loadNode) > selector(previousNode);
         }
     }
